@@ -2,13 +2,17 @@ package roomescape.dto;
 
 
 import lombok.Getter;
+import lombok.NonNull;
 
 @Getter
 public class Reservation {
 
     private Long id;
+    @NonNull
     private String name;
+    @NonNull
     private String date;
+    @NonNull
     private String time;
 
     public Reservation(Long id, String name, String date, String time){
