@@ -3,12 +3,15 @@ package roomescape.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import roomescape.entity.Reservation;
+import roomescape.dto.Reservation;
+import roomescape.exception.MissingParameterException;
+import roomescape.exception.NotFoundReservationException;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -35,9 +38,22 @@ public class ReservationController {
 
     @PostMapping("/reservations")
     public ResponseEntity<Reservation> reserve(@RequestBody Reservation reservation){
+        if (reservation.getName().isBlank()) {
+            throw new MissingParameterException("name");
+        }
+
+        if (reservation.getDate().isBlank()) {
+            throw new MissingParameterException("date");
+        }
+
+        if (reservation.getTime().isBlank()) {
+            throw new MissingParameterException("time");
+        }
+
+
         Reservation newReservation = Reservation.toEntity(id.incrementAndGet(),reservation);
         reservations.add(newReservation);
-        
+
         return ResponseEntity.created(URI.create("/reservations/" + newReservation.getId())).body(newReservation);
     }
 
@@ -46,10 +62,20 @@ public class ReservationController {
         Reservation reservation = reservations.stream()
                 .filter(it -> Objects.equals(it.getId(), id))
                 .findFirst()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new NotFoundReservationException("Reservation not found"));
 
         reservations.remove(reservation);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(MissingParameterException.class)
+    public ResponseEntity<String> handleMissingParameterException(MissingParameterException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundReservationException.class)
+    public ResponseEntity handleException(NotFoundReservationException e) {
+        return ResponseEntity.badRequest().build();
     }
 }
