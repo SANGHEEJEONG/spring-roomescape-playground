@@ -2,6 +2,7 @@ package roomescape.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class RoomescapeControllerAdvice {
 
-    @ExceptionHandler(MissingParameterException.class)
-    public ResponseEntity<String> handleMissingParameterException(MissingParameterException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException e) {
+        return ResponseEntity.badRequest().body("파라미터의 값이 누락되었습니다.");
     }
 
     @ExceptionHandler(NotFoundReservationException.class)

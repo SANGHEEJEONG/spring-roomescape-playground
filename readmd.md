@@ -10,5 +10,7 @@
 #### Service
 + getReservations 예약 조회 메서드
 + createReservation 예약 추가 메서드
+  + MissingParameterException
 + deleteReservation 예약 취소 메서드
+  + NotFoundReservationException
 

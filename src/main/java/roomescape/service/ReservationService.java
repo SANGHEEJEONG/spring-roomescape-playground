@@ -3,7 +3,6 @@ package roomescape.service;
 import org.springframework.stereotype.Service;
 import roomescape.dto.ReservationRequest;
 import roomescape.dto.ReservationResponse;
-import roomescape.exception.MissingParameterException;
 import roomescape.exception.NotFoundReservationException;
 
 import java.util.HashMap;
@@ -21,21 +20,11 @@ public class ReservationService {
     }
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        if (reservationRequest.getName().isBlank()) {
-            throw new MissingParameterException("name");
-        }
-
-        if (reservationRequest.getDate().isBlank()) {
-            throw new MissingParameterException("date");
-        }
-
-        if (reservationRequest.getTime().isBlank()) {
-            throw new MissingParameterException("time");
-        }
-
         Long newId = id.incrementAndGet();
         ReservationResponse newReservation = ReservationResponse.toEntity(newId,reservationRequest);
+
         reservations.put(newId, newReservation);
+
         return newReservation;
     }
 
@@ -43,7 +32,7 @@ public class ReservationService {
         ReservationResponse reservation = reservations.get(id);
 
         if (reservation == null) {
-            throw new NotFoundReservationException("Reservation not found");
+            throw new NotFoundReservationException();
         }
 
         reservations.remove(id);
