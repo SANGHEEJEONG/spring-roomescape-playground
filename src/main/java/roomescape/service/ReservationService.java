@@ -15,20 +15,20 @@ public class ReservationService {
     private Map<Long, ReservationResponse> reservations = new HashMap<>();
     private AtomicLong id = new AtomicLong(0);
 
-    public Map<Long, ReservationResponse> getReservations(){
+    public Map<Long, ReservationResponse> getReservations() {
         return reservations;
     }
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
         Long newId = id.incrementAndGet();
-        ReservationResponse newReservation = ReservationResponse.toEntity(newId,reservationRequest);
+        ReservationResponse newReservation = ReservationResponse.toEntity(newId, reservationRequest);
 
         reservations.put(newId, newReservation);
 
         return newReservation;
     }
 
-    public void deleteReservation(Long id){
+    public void deleteReservation(Long id) {
         ReservationResponse reservation = reservations.get(id);
 
         if (reservation == null) {

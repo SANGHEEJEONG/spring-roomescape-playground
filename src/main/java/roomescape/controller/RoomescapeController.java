@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RoomescapeController {
 
     @GetMapping("/")
-    public String accessAdminPage(){
+    public String accessAdminPage() {
         return "home";
     }
 }

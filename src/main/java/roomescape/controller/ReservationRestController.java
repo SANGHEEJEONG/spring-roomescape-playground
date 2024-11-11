@@ -20,22 +20,22 @@ import java.util.Map;
 @RestController
 public class ReservationRestController {
 
-private final ReservationService reservationService;
+    private final ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public ResponseEntity<Map<Long, ReservationResponse>> getReservations(){
+    public ResponseEntity<Map<Long, ReservationResponse>> getReservations() {
         return ResponseEntity.ok().body(reservationService.getReservations());
     }
 
     @PostMapping("/reservations")
-    public ResponseEntity<ReservationResponse> createReservation(@RequestBody @Valid ReservationRequest reservationRequest){
+    public ResponseEntity<ReservationResponse> createReservation(@RequestBody @Valid ReservationRequest reservationRequest) {
         ReservationResponse newReservation = reservationService.createReservation(reservationRequest);
 
         return ResponseEntity.created(URI.create("/reservations/" + newReservation.getId())).body(newReservation);
     }
 
     @DeleteMapping("/reservations/{id}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable Long id){
+    public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
 
         return ResponseEntity.noContent().build();

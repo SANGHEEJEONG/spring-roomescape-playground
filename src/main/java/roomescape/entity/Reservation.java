@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Reservation {
+
     private final Long id;
     private final String name;
     private final ReservationDate date;

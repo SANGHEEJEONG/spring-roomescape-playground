@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 public class ReservationDate {
-    private final String date;
 
+    private final String date;
 
     public ReservationDate(String date) {
         validateDate(date);
