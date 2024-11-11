@@ -5,11 +5,9 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import roomescape.dto.Reservation;
+import roomescape.dto.ReservationResponse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -18,7 +16,7 @@ import static org.hamcrest.core.Is.is;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class MissionStepTest {
 
-    private List<Reservation> reservations = new ArrayList<>();
+    private Map<Long, ReservationResponse> reservations = new HashMap<>();
     private AtomicLong id = new AtomicLong(0);
 
     @BeforeEach
