@@ -6,14 +6,29 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @RestControllerAdvice
 public class RoomescapeControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException e) {
-        return ResponseEntity.badRequest().body("파라미터의 값이 누락되었습니다.");
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException e) {
+        Map<String, String> errors = new HashMap<>();
+
+        log.error("파라미터 형식 에러 발생", e);
+
+        // BindingResult -> 오류 목록 저장
+        e.getBindingResult().getFieldErrors().forEach(error -> {
+            String fieldName = error.getField();
+            String errorMessage = "입력값: [" + error.getRejectedValue() + "] - " + error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return ResponseEntity.badRequest().body(errors);
     }
+
 
     @ExceptionHandler(NotFoundReservationException.class)
     public ResponseEntity<Void> handleNotFoundReservationException(NotFoundReservationException e) {
