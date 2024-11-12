@@ -1,3 +1,4 @@
+# 🌀 Spring MVC
 ## 예약
 #### id :식별
 #### name : 예약한 사람 이름
@@ -13,4 +14,9 @@
   + MissingParameterException
 + deleteReservation 예약 취소 메서드
   + NotFoundReservationException
+
+# 🌀 Spring JDBC
+## 요구사항
++ 데이터베이스 이름 : DATABASE
++ 테이블 이름 : RESERVATION
 
