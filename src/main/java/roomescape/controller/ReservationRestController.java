@@ -14,17 +14,17 @@ import roomescape.dto.ReservationResponse;
 import roomescape.service.ReservationService;
 
 import java.net.URI;
-import java.util.Map;
+import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class ReservationRestController {
 
     private final ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public ResponseEntity<Map<Long, ReservationResponse>> getReservations() {
-        return ResponseEntity.ok().body(reservationService.getReservations());
+    public ResponseEntity<List<ReservationResponse>> findAllReservations() {
+        return ResponseEntity.ok().body(reservationService.findAllReservations());
     }
 
     @PostMapping("/reservations")
