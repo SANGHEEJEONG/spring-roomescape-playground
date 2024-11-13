@@ -27,19 +27,22 @@ public class ReservationService {
 
         // Reservation -> ReservationResponse 로 변환하여 반환
         List<ReservationResponse> reservationResponses = reservations.stream()
-                .map(ReservationResponse::fromEntity)
+                .map(Reservation::toResponse)
                 .toList();
 
         return reservationResponses;
     }
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        Long newId = id.incrementAndGet();
-        ReservationResponse newReservation = ReservationResponse.fromRequest(newId, reservationRequest);
+        // ReservationRequest -> Reservation 으로 변환
+        Reservation reservation = reservationRequest.toEntity(reservationRequest);
 
-        reservations.put(newId, newReservation);
+        reservation = reservationDAO.createReservation(reservation);
 
-        return newReservation;
+        // Reservation -> ReservationResponse 로 변환
+        ReservationResponse reservationResponse = reservation.toResponse();
+
+        return reservationResponse;
     }
 
     public void deleteReservation(Long id) {

@@ -21,9 +21,15 @@ public class ReservationDate {
         LocalDate inputDate = LocalDate.parse(date, formatter);
 
         LocalDate today = LocalDate.now();
-        if (inputDate.isAfter(today)) {
+        if (inputDate.isBefore(today)) {
             throw new IllegalArgumentException("지난 날짜는 예약이 불가합니다.");
         }
 
     }
+
+    @Override
+    public String toString() {
+        return date;
+    }
+
 }
