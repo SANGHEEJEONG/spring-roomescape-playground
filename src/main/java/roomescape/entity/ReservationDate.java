@@ -15,7 +15,7 @@ public class ReservationDate {
         this.date = date;
     }
 
-    private void validateDate(String date){
+    private void validateDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate inputDate = LocalDate.parse(date, formatter);
@@ -24,12 +24,10 @@ public class ReservationDate {
         if (inputDate.isBefore(today)) {
             throw new IllegalArgumentException("지난 날짜는 예약이 불가합니다.");
         }
-
     }
 
     @Override
     public String toString() {
         return date;
     }
-
 }

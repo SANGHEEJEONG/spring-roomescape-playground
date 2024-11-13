@@ -40,8 +40,6 @@ public class ReservationRestController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 }
 
 

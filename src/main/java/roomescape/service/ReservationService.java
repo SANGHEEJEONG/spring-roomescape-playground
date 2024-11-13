@@ -18,7 +18,6 @@ public class ReservationService {
     public List<ReservationResponse> findAllReservations() {
         List<Reservation> reservations = reservationDAO.findAllReservations();
 
-        // Reservation -> ReservationResponse 로 변환하여 반환
         List<ReservationResponse> reservationResponses = reservations.stream()
                 .map(Reservation::toResponse)
                 .toList();
@@ -27,12 +26,10 @@ public class ReservationService {
     }
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        // ReservationRequest -> Reservation 으로 변환
-        Reservation reservation = reservationRequest.toEntity(reservationRequest);
+        Reservation reservation = reservationRequest.toEntity();
 
         reservation = reservationDAO.createReservation(reservation);
 
-        // Reservation -> ReservationResponse 로 변환
         ReservationResponse reservationResponse = reservation.toResponse();
 
         return reservationResponse;
