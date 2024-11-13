@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import roomescape.entity.Reservation;
+import roomescape.exception.NotFoundReservationException;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -47,4 +48,12 @@ public class ReservationDAO {
         return new Reservation(newId, reservation.getName(), reservation.getDate().getDate(), reservation.getTime());
     }
 
+    public void deleteReservation(Long id) {
+        String sql = "delete from reservation where id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+
+        if (rowsAffected == 0) {
+            throw new NotFoundReservationException();
+        }
+    }
 }
