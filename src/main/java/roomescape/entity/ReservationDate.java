@@ -1,6 +1,7 @@
 package roomescape.entity;
 
 import lombok.Getter;
+import roomescape.exception.InvalidReservationDateException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,7 @@ public class ReservationDate {
 
         LocalDate today = LocalDate.now();
         if (inputDate.isBefore(today)) {
-            throw new IllegalArgumentException("지난 날짜는 예약이 불가합니다.");
+            throw new InvalidReservationDateException();
         }
     }
 

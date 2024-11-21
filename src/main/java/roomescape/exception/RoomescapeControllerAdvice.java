@@ -31,8 +31,13 @@ public class RoomescapeControllerAdvice {
 
 
     @ExceptionHandler(NotFoundReservationException.class)
-    public ResponseEntity<Void> handleNotFoundReservationException(NotFoundReservationException e) {
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> handleNotFoundReservationException(NotFoundReservationException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidReservationDateException.class)
+    public ResponseEntity<String> handleInvalidReservationDateException(InvalidReservationDateException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
