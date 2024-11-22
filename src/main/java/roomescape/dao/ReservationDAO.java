@@ -5,15 +5,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import roomescape.entity.Reservation;
 import roomescape.exception.NotFoundReservationException;
+import roomescape.repository.ReservationRepository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-@Repository
-public class ReservationDAO {
+@Component
+public class ReservationDAO implements ReservationRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert insertReservation;
