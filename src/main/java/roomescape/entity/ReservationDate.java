@@ -22,6 +22,7 @@ public class ReservationDate {
         LocalDate inputDate = LocalDate.parse(date, formatter);
 
         LocalDate today = LocalDate.now();
+
         if (inputDate.isBefore(today)) {
             throw new InvalidReservationDateException();
         }
