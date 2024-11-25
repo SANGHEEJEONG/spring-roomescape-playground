@@ -1,7 +1,6 @@
 package roomescape.entity;
 
 import lombok.Getter;
-import roomescape.dto.ReservationResponse;
 
 @Getter
 public class Reservation {
@@ -16,9 +15,5 @@ public class Reservation {
         this.name = name;
         this.date = new ReservationDate(date);
         this.time = time;
-    }
-
-    public ReservationResponse toResponse() {
-        return new ReservationResponse(this.id, this.name, this.date.toString(), this.time);
     }
 }

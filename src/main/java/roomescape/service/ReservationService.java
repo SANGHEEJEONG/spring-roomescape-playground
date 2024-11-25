@@ -19,7 +19,7 @@ public class ReservationService {
         List<Reservation> reservations = reservationRepository.findAllReservations();
 
         List<ReservationResponse> reservationResponses = reservations.stream()
-                .map(Reservation::toResponse)
+                .map(ReservationResponse::fromReservation)
                 .toList();
 
         return reservationResponses;
@@ -30,7 +30,7 @@ public class ReservationService {
 
         reservation = reservationRepository.createReservation(reservation);
 
-        ReservationResponse reservationResponse = reservation.toResponse();
+        ReservationResponse reservationResponse = ReservationResponse.fromReservation(reservation);
 
         return reservationResponse;
     }
