@@ -1,4 +1,5 @@
 # 🌀 Spring MVC
+
 ## 예약
 #### id :식별
 #### name : 예약한 사람 이름
@@ -15,6 +16,7 @@
 + deleteReservation 예약 취소 메서드
   + NotFoundReservationException
 
+
 # 🌀 Spring JDBC
 ## 요구사항
 + 데이터베이스 이름 : DATABASE
@@ -25,4 +27,5 @@
   + 생성된 id 값을 활용해서 응답해야 함
 + 데이터베이스에 예약 추가 기능
 + 데이터베이스의 예약 삭제 기능
+
 
