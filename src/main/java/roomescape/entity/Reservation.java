@@ -1,14 +1,16 @@
 package roomescape.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class Reservation {
 
-    private final Long id;
-    private final String name;
-    private final ReservationDate date;
-    private final String time;
+    private Long id;
+    private String name;
+    private ReservationDate date;
+    private String time;
 
     public Reservation(Long id, String name, String date, String time) {
         this.id = id;
