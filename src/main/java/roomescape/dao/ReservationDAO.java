@@ -37,16 +37,16 @@ public class ReservationDAO implements ReservationRepository {
         return reservation;
     };
 
-    public List<Reservation> findAllReservations() {
-        String sql = "select id, name, date, time from reservation";
-        return jdbcTemplate.query(sql, reservationRowMapper);
-    }
-
     public Reservation createReservation(Reservation reservation) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(reservation);
         Long newId = insertReservation.executeAndReturnKey(parameters).longValue();
 
         return new Reservation(newId, reservation.getName(), reservation.getDate().getDate(), reservation.getTime());
+    }
+
+    public List<Reservation> findAllReservations() {
+        String sql = "select id, name, date, time from reservation";
+        return jdbcTemplate.query(sql, reservationRowMapper);
     }
 
     public void deleteReservation(Long id) {

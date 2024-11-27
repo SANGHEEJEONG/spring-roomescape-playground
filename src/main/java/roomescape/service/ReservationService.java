@@ -15,16 +15,6 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
 
-    public List<ReservationResponse> findAllReservations() {
-        List<Reservation> reservations = reservationRepository.findAllReservations();
-
-        List<ReservationResponse> reservationResponses = reservations.stream()
-                .map(ReservationResponse::fromReservation)
-                .toList();
-
-        return reservationResponses;
-    }
-
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
         Reservation reservation = reservationRequest.toEntity();
 
@@ -33,6 +23,16 @@ public class ReservationService {
         ReservationResponse reservationResponse = ReservationResponse.fromReservation(reservation);
 
         return reservationResponse;
+    }
+
+    public List<ReservationResponse> findAllReservations() {
+        List<Reservation> reservations = reservationRepository.findAllReservations();
+
+        List<ReservationResponse> reservationResponses = reservations.stream()
+                .map(ReservationResponse::fromReservation)
+                .toList();
+
+        return reservationResponses;
     }
 
     public void deleteReservation(Long id) {

@@ -1,6 +1,7 @@
 package roomescape.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -9,6 +10,7 @@ import roomescape.entity.ReservationTime;
 import roomescape.repository.ReservationTimeRepository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Component
 public class ReservationTimeDAO implements ReservationTimeRepository {
@@ -23,10 +25,24 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
                 .usingGeneratedKeyColumns("id"); // 자동 생성되는 키 컬럼 설정
     }
 
+    private final RowMapper<ReservationTime> reservationTimeRowMapper = (resultSet, rowNum) -> {
+        ReservationTime reservationTime = new ReservationTime(
+                resultSet.getLong("id"),
+                resultSet.getString("time")
+        );
+
+        return reservationTime;
+    };
+
     public ReservationTime createReservationTime(ReservationTime reservationTime) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(reservationTime);
         Long newId = insertReservationTime.executeAndReturnKey(parameters).longValue();
 
         return new ReservationTime(newId, reservationTime.getTime());
+    }
+
+    public List<ReservationTime> findAllReservationTimes() {
+        String sql = "select id, time from time";
+        return jdbcTemplate.query(sql, reservationTimeRowMapper);
     }
 }

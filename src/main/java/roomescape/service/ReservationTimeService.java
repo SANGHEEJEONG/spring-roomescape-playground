@@ -7,6 +7,8 @@ import roomescape.dto.ReservationTimeResponse;
 import roomescape.entity.ReservationTime;
 import roomescape.repository.ReservationTimeRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReservationTimeService {
@@ -21,5 +23,15 @@ public class ReservationTimeService {
         ReservationTimeResponse reservationTimeResponse = ReservationTimeResponse.fromReservationTime(reservationTime);
 
         return reservationTimeResponse;
+    }
+
+    public List<ReservationTimeResponse> findAllReservationTimes() {
+        List<ReservationTime> reservationTimes = reservationTimeRepository.findAllReservationTimes();
+
+        List<ReservationTimeResponse> reservationTimeResponses = reservationTimes.stream()
+                .map(ReservationTimeResponse::fromReservationTime)
+                .toList();
+
+        return reservationTimeResponses;
     }
 }
