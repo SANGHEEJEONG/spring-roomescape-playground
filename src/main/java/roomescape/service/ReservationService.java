@@ -18,14 +18,12 @@ public class ReservationService {
     private final ReservationTimeService reservationTimeService;
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        ReservationTime reservationTime = reservationTimeService.findReservationTimeById(reservationRequest.timeId());
+        ReservationTime reservationTime = findReservationTime(reservationRequest);
         Reservation reservation = reservationRequest.toEntity(reservationTime);
 
         reservation = reservationRepository.createReservation(reservation);
 
-        ReservationResponse reservationResponse = ReservationResponse.fromReservation(reservation);
-
-        return reservationResponse;
+        return ReservationResponse.fromReservation(reservation);
     }
 
     public List<ReservationResponse> findAllReservations() {
@@ -40,5 +38,9 @@ public class ReservationService {
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteReservation(id);
+    }
+
+    private ReservationTime findReservationTime(ReservationRequest reservationRequest) {
+        return reservationTimeService.findReservationTimeById(reservationRequest.timeId());
     }
 }
