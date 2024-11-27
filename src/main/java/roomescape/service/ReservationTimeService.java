@@ -35,6 +35,10 @@ public class ReservationTimeService {
         return reservationTimeResponses;
     }
 
+    public ReservationTime findReservationTimeById(Long id){
+        return reservationTimeRepository.findReservationTimeById(id);
+    }
+
     public void deleteReservationTime(Long id) {
         reservationTimeRepository.deleteReservationTime(id);
     }

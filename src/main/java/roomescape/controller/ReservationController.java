@@ -8,6 +8,6 @@ public class ReservationController {
 
     @GetMapping("/reservation")
     public String accessReservationPage() {
-        return "reservation";
+        return "new-reservation";
     }
 }

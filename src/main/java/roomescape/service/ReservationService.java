@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import roomescape.dto.ReservationRequest;
 import roomescape.dto.ReservationResponse;
 import roomescape.entity.Reservation;
+import roomescape.entity.ReservationTime;
 import roomescape.repository.ReservationRepository;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final ReservationTimeService reservationTimeService;
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        Reservation reservation = reservationRequest.toEntity();
+        ReservationTime reservationTime = reservationTimeService.findReservationTimeById(reservationRequest.timeId());
+        Reservation reservation = reservationRequest.toEntity(reservationTime);
 
         reservation = reservationRepository.createReservation(reservation);
 

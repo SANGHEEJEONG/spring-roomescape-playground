@@ -1,12 +1,13 @@
 package roomescape.dto;
 
 import roomescape.entity.Reservation;
+import roomescape.entity.ReservationTime;
 
 public record ReservationResponse(
         Long id,
         String name,
         String date,
-        String time
+        ReservationTime time
 ) {
     public static ReservationResponse fromReservation(Reservation reservation) {
         return new ReservationResponse(
