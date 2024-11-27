@@ -21,13 +21,13 @@ public class ReservationService {
         ReservationTime reservationTime = findReservationTime(reservationRequest);
         Reservation reservation = reservationRequest.toEntity(reservationTime);
 
-        reservation = reservationRepository.createReservation(reservation);
+        reservation = reservationRepository.save(reservation);
 
         return ReservationResponse.fromReservation(reservation);
     }
 
     public List<ReservationResponse> findAllReservations() {
-        List<Reservation> reservations = reservationRepository.findAllReservations();
+        List<Reservation> reservations = reservationRepository.findAll();
 
         List<ReservationResponse> reservationResponses = reservations.stream()
                 .map(ReservationResponse::fromReservation)
@@ -37,7 +37,7 @@ public class ReservationService {
     }
 
     public void deleteReservation(Long id) {
-        reservationRepository.deleteReservation(id);
+        reservationRepository.delete(id);
     }
 
     private ReservationTime findReservationTime(ReservationRequest reservationRequest) {

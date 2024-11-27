@@ -38,7 +38,7 @@ public class ReservationDAO implements ReservationRepository {
     };
 
 
-    public Reservation createReservation(Reservation reservation) {
+    public Reservation save(Reservation reservation) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", reservation.getName())
                 .addValue("date", reservation.getDate())
@@ -49,7 +49,7 @@ public class ReservationDAO implements ReservationRepository {
         return new Reservation(newId, reservation.getName(), reservation.getDate().getDate(), reservation.getTime());
     }
 
-    public List<Reservation> findAllReservations() {
+    public List<Reservation> findAll() {
         String sql = "SELECT \n" +
                 "    r.id as reservation_id, \n" +
                 "    r.name, \n" +
@@ -60,7 +60,7 @@ public class ReservationDAO implements ReservationRepository {
         return jdbcTemplate.query(sql, reservationRowMapper);
     }
 
-    public void deleteReservation(Long id) {
+    public void delete(Long id) {
         String sql = "delete from reservation where id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
 

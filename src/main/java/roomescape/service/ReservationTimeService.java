@@ -18,7 +18,7 @@ public class ReservationTimeService {
     public ReservationTimeResponse createReservationTime(ReservationTimeRequest reservationTimeRequest) {
         ReservationTime reservationTime = reservationTimeRequest.toEntity();
 
-        reservationTime = reservationTimeRepository.createReservationTime(reservationTime);
+        reservationTime = reservationTimeRepository.save(reservationTime);
 
         ReservationTimeResponse reservationTimeResponse = ReservationTimeResponse.fromReservationTime(reservationTime);
 
@@ -26,7 +26,7 @@ public class ReservationTimeService {
     }
 
     public List<ReservationTimeResponse> findAllReservationTimes() {
-        List<ReservationTime> reservationTimes = reservationTimeRepository.findAllReservationTimes();
+        List<ReservationTime> reservationTimes = reservationTimeRepository.findAll();
 
         List<ReservationTimeResponse> reservationTimeResponses = reservationTimes.stream()
                 .map(ReservationTimeResponse::fromReservationTime)
@@ -36,10 +36,10 @@ public class ReservationTimeService {
     }
 
     public ReservationTime findReservationTimeById(Long id){
-        return reservationTimeRepository.findReservationTimeById(id);
+        return reservationTimeRepository.findById(id);
     }
 
     public void deleteReservationTime(Long id) {
-        reservationTimeRepository.deleteReservationTime(id);
+        reservationTimeRepository.delete(id);
     }
 }

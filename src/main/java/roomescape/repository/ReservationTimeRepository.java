@@ -7,8 +7,8 @@ import java.util.List;
 
 @Repository
 public interface ReservationTimeRepository {
-    ReservationTime createReservationTime(ReservationTime reservationTime);
-    List<ReservationTime> findAllReservationTimes();
-    ReservationTime findReservationTimeById(Long id);
-    void deleteReservationTime(Long id);
+    ReservationTime save(ReservationTime reservationTime);
+    List<ReservationTime> findAll();
+    ReservationTime findById(Long id);
+    void delete(Long id);
 }

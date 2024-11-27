@@ -36,19 +36,19 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
         return reservationTime;
     };
 
-    public ReservationTime createReservationTime(ReservationTime reservationTime) {
+    public ReservationTime save(ReservationTime reservationTime) {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(reservationTime);
         Long newId = insertReservationTime.executeAndReturnKey(parameters).longValue();
 
         return new ReservationTime(newId, reservationTime.getTime());
     }
 
-    public List<ReservationTime> findAllReservationTimes() {
+    public List<ReservationTime> findAll() {
         String sql = "select id, time from time";
         return jdbcTemplate.query(sql, reservationTimeRowMapper);
     }
 
-    public ReservationTime findReservationTimeById(Long id) {
+    public ReservationTime findById(Long id) {
         String sql = "SELECT id, time FROM time WHERE id = ?";
 
         try {
@@ -58,7 +58,7 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
         }
     }
 
-    public void deleteReservationTime(Long id) {
+    public void delete(Long id) {
         String sql = "delete from time where id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
 
