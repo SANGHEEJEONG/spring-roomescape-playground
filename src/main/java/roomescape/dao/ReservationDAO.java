@@ -54,7 +54,7 @@ public class ReservationDAO implements ReservationRepository {
         int rowsAffected = jdbcTemplate.update(sql, id);
 
         if (rowsAffected == 0) {
-            throw new NotFoundReservationException();
+            throw new NotFoundReservationException("예약");
         }
     }
 }

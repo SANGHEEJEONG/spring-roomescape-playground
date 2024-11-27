@@ -3,7 +3,9 @@ package roomescape.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +32,12 @@ public class ReservationTimeController {
     @GetMapping("/times")
     public ResponseEntity<List<ReservationTimeResponse>> findAllReservationTimes() {
         return ResponseEntity.ok().body(reservationTimeService.findAllReservationTimes());
+    }
+
+    @DeleteMapping("/times/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
+        reservationTimeService.deleteReservationTime(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

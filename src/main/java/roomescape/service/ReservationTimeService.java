@@ -34,4 +34,8 @@ public class ReservationTimeService {
 
         return reservationTimeResponses;
     }
+
+    public void deleteReservationTime(Long id) {
+        reservationTimeRepository.deleteReservationTime(id);
+    }
 }

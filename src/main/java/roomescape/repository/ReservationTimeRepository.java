@@ -9,4 +9,5 @@ import java.util.List;
 public interface ReservationTimeRepository {
     ReservationTime createReservationTime(ReservationTime reservationTime);
     List<ReservationTime> findAllReservationTimes();
+    void deleteReservationTime(Long id);
 }

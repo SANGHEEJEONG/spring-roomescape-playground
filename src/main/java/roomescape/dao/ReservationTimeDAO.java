@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import roomescape.entity.ReservationTime;
+import roomescape.exception.NotFoundReservationException;
 import roomescape.repository.ReservationTimeRepository;
 
 import javax.sql.DataSource;
@@ -44,5 +45,14 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
     public List<ReservationTime> findAllReservationTimes() {
         String sql = "select id, time from time";
         return jdbcTemplate.query(sql, reservationTimeRowMapper);
+    }
+
+    public void deleteReservationTime(Long id) {
+        String sql = "delete from time where id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+
+        if (rowsAffected == 0) {
+            throw new NotFoundReservationException("예약 시간");
+        }
     }
 }
