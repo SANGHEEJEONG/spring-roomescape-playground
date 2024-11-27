@@ -4,12 +4,12 @@ import roomescape.entity.ReservationTime;
 
 public record ReservationTimeResponse(
         Long id,
-        String reservationTime
+        String time
 ) {
     public static ReservationTimeResponse fromReservationTime(ReservationTime reservationTime) {
         return new ReservationTimeResponse(
                 reservationTime.getId(),
-                reservationTime.getReservationTime()
+                reservationTime.getTime()
         );
     }
 }

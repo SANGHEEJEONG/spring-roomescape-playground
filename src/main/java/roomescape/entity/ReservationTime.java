@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 public class ReservationTime {
     private Long id;
-    private String reservationTime;
+    private String time;
 
-    public ReservationTime(Long id, String reservationTime) {
+    public ReservationTime(Long id, String time) {
         this.id = id;
-        this.reservationTime = reservationTime;
+        this.time = time;
     }
 }
