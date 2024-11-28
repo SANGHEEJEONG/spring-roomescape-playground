@@ -18,7 +18,7 @@ public class ReservationService {
     private final ReservationTimeService reservationTimeService;
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
-        Reservation reservation = conveertToReservation(reservationRequest);
+        Reservation reservation = convertToReservation(reservationRequest);
 
         reservation = reservationRepository.save(reservation);
 
@@ -43,7 +43,7 @@ public class ReservationService {
         return reservationTimeService.findReservationTimeById(reservationRequest.timeId());
     }
 
-    private Reservation conveertToReservation(ReservationRequest reservationRequest) {
+    private Reservation convertToReservation(ReservationRequest reservationRequest) {
         ReservationTime reservationTime = findReservationTime(reservationRequest);
         return reservationRequest.toEntity(reservationTime);
     }

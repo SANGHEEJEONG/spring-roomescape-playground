@@ -20,19 +20,15 @@ public class ReservationTimeService {
 
         reservationTime = reservationTimeRepository.save(reservationTime);
 
-        ReservationTimeResponse reservationTimeResponse = ReservationTimeResponse.fromReservationTime(reservationTime);
-
-        return reservationTimeResponse;
+        return ReservationTimeResponse.fromReservationTime(reservationTime);
     }
 
     public List<ReservationTimeResponse> findAllReservationTimes() {
         List<ReservationTime> reservationTimes = reservationTimeRepository.findAll();
 
-        List<ReservationTimeResponse> reservationTimeResponses = reservationTimes.stream()
+        return reservationTimes.stream()
                 .map(ReservationTimeResponse::fromReservationTime)
                 .toList();
-
-        return reservationTimeResponses;
     }
 
     public ReservationTime findReservationTimeById(Long id){
