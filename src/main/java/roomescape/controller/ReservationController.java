@@ -10,4 +10,9 @@ public class ReservationController {
     public String accessReservationPage() {
         return "new-reservation";
     }
+
+    @GetMapping("/time")
+    public String showTimeForm() {
+        return "time";
+    }
 }

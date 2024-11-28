@@ -40,7 +40,7 @@ public class ReservationService {
     }
 
     private ReservationTime findReservationTime(ReservationRequest reservationRequest) {
-        return reservationTimeService.findReservationTimeById(reservationRequest.timeId());
+        return reservationTimeService.findReservationTimeById(reservationRequest.time());
     }
 
     private Reservation convertToReservation(ReservationRequest reservationRequest) {
