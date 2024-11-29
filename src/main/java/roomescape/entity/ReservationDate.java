@@ -1,6 +1,7 @@
 package roomescape.entity;
 
 import lombok.Getter;
+import roomescape.exception.InvalidReservationDateException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,15 +16,20 @@ public class ReservationDate {
         this.date = date;
     }
 
-    private void validateDate(String date){
+    private void validateDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate inputDate = LocalDate.parse(date, formatter);
 
         LocalDate today = LocalDate.now();
-        if (inputDate.isAfter(today)) {
-            throw new IllegalArgumentException("지난 날짜는 예약이 불가합니다.");
-        }
 
+        if (inputDate.isBefore(today)) {
+            throw new InvalidReservationDateException();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return date;
     }
 }
