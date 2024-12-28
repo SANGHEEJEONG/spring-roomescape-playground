@@ -31,10 +31,6 @@ public class ReservationTimeService {
                 .toList();
     }
 
-    public ReservationTime findReservationTimeById(Long id){
-        return reservationTimeRepository.findById(id);
-    }
-
     public void deleteReservationTime(Long id) {
         reservationTimeRepository.delete(id);
     }

@@ -7,6 +7,7 @@ import roomescape.dto.ReservationResponse;
 import roomescape.entity.Reservation;
 import roomescape.entity.ReservationTime;
 import roomescape.repository.ReservationRepository;
+import roomescape.repository.ReservationTimeRepository;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final ReservationTimeService reservationTimeService;
+    private final ReservationTimeRepository reservationTimeRepository;
 
     public ReservationResponse createReservation(ReservationRequest reservationRequest) {
         Reservation reservation = convertToReservation(reservationRequest);
@@ -40,7 +41,7 @@ public class ReservationService {
     }
 
     private ReservationTime findReservationTime(ReservationRequest reservationRequest) {
-        return reservationTimeService.findReservationTimeById(reservationRequest.time());
+        return reservationTimeRepository.findById(reservationRequest.time());
     }
 
     private Reservation convertToReservation(ReservationRequest reservationRequest) {
