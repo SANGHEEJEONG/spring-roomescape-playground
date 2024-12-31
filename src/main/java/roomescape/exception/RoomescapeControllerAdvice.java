@@ -46,6 +46,11 @@ public class RoomescapeControllerAdvice {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
+    @ExceptionHandler(InvalidReservationTimeException.class)
+    public ResponseEntity<String> handleInvalidReservationTimeException(InvalidReservationTimeException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
         log.error("");

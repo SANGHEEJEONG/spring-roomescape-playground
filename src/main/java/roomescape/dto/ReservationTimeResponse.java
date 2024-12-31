@@ -9,7 +9,7 @@ public record ReservationTimeResponse(
     public static ReservationTimeResponse fromReservationTime(ReservationTime reservationTime) {
         return new ReservationTimeResponse(
                 reservationTime.getId(),
-                reservationTime.getTime()
+                reservationTime.getTime().toString()
         );
     }
 }

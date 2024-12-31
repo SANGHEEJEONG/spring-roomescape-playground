@@ -12,6 +12,8 @@ import roomescape.exception.NotFoundException;
 import roomescape.repository.ReservationTimeRepository;
 
 import javax.sql.DataSource;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -28,9 +30,13 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
     }
 
     private final RowMapper<ReservationTime> reservationTimeRowMapper = (resultSet, rowNum) -> {
+        String timeStr = resultSet.getString("time");
+        LocalTime time = LocalTime.parse(timeStr, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+
         ReservationTime reservationTime = new ReservationTime(
                 resultSet.getLong("id"),
-                resultSet.getString("time")
+                formattedTime
         );
 
         return reservationTime;
@@ -40,7 +46,7 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
         SqlParameterSource parameters = new BeanPropertySqlParameterSource(reservationTime);
         Long newId = insertReservationTime.executeAndReturnKey(parameters).longValue();
 
-        return new ReservationTime(newId, reservationTime.getTime());
+        return new ReservationTime(newId, reservationTime.getTime().toString());
     }
 
     public List<ReservationTime> findAll() {
