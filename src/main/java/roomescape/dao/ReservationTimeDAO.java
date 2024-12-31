@@ -72,4 +72,14 @@ public class ReservationTimeDAO implements ReservationTimeRepository {
             throw new NotFoundException("예약 시간");
         }
     }
+
+    @Override
+    public boolean existsByTime(LocalTime time) {
+        String sql = "SELECT count(*) FROM time WHERE time = ?";
+
+        String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{formattedTime}, Integer.class);
+
+        return count != null && count > 0;
+    }
 }

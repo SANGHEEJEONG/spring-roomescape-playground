@@ -51,6 +51,11 @@ public class RoomescapeControllerAdvice {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
+    @ExceptionHandler(TimeDuplicateException.class)
+    public ResponseEntity<String> handleTimeConflictException(TimeDuplicateException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
         log.error("");

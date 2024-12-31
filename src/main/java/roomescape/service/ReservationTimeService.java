@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import roomescape.dto.ReservationTimeRequest;
 import roomescape.dto.ReservationTimeResponse;
 import roomescape.entity.ReservationTime;
+import roomescape.exception.TimeDuplicateException;
 import roomescape.repository.ReservationTimeRepository;
 
 import java.util.List;
@@ -18,8 +19,11 @@ public class ReservationTimeService {
     public ReservationTimeResponse createReservationTime(ReservationTimeRequest reservationTimeRequest) {
         ReservationTime reservationTime = reservationTimeRequest.toEntity();
 
-        reservationTime = reservationTimeRepository.save(reservationTime);
+        if (reservationTimeRepository.existsByTime(reservationTime.getTime())) {
+            throw new TimeDuplicateException();
+        }
 
+        reservationTime = reservationTimeRepository.save(reservationTime);
         return ReservationTimeResponse.fromReservationTime(reservationTime);
     }
 
