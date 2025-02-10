@@ -1,5 +1,6 @@
 package roomescape.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -57,14 +58,14 @@ public class RoomescapeControllerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        log.error("");
+    public ResponseEntity<String> handleException(Exception e, HttpServletRequest request) {
+        log.error("에러 request {} {}", request.getMethod(), request.getRequestURI(), e);
         return ResponseEntity.internalServerError().body("의도되지 않은 에러가 발생했습니다");
     }
 
     @ExceptionHandler(RoomescapeException.class)
-    public ResponseEntity<String> handleExceptions(RoomescapeException e) {
-        log.error("");
+    public ResponseEntity<String> handleExceptions(RoomescapeException e, HttpServletRequest request) {
+        log.error("에러 request {} {}", request.getMethod(), request.getRequestURI(), e);
         return ResponseEntity.internalServerError().body("프로그램 내 에러가 발생했습니다.");
     }
 }
